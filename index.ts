@@ -3,6 +3,7 @@ import Fuse from "fuse.js";
 
 interface Props<T> {
 	data: T[];
+	searchText: string;
 	options?: Fuse.IFuseOptions<T>;
 }
 
@@ -17,7 +18,7 @@ interface Props<T> {
  * @see https://fusejs.io/
  */
 
-export function useFuse<T extends unknown>({ data, options }: Props<T>) {
+export function useFuse<T>({ data, options, searchText }: Props<T>) {
 	const defaultOpts = {
 		shouldSort: true,
 		useExtendedSearch: true,
@@ -28,13 +29,11 @@ export function useFuse<T extends unknown>({ data, options }: Props<T>) {
 	);
 
 	const search = React.useCallback(
-		(query: string | Fuse.Expression, opts?: Fuse.FuseSearchOptions) => {
-			if (!query) {
-				return data;
-			}
-			return fuse.search(query, opts).map((result) => result.item);
+		(opts?: Fuse.FuseSearchOptions) => {
+			if (!searchText) return data;
+			return fuse.search(searchText, opts).map((result) => result.item);
 		},
-		[fuse]
+		[searchText, fuse]
 	);
 
 	return {
