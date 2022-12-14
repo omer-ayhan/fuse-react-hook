@@ -22,6 +22,10 @@ Pnpm:
 pnpm add fuse-react-hook
 ```
 
+## Note ⚠️
+
+data property names does not have to be any specific name as long as they are defined in the type of the hook
+
 ## Options
 
 ```typescript
@@ -36,6 +40,68 @@ pnpm add fuse-react-hook
 
 ## Usage
 
-```jsx
+```tsx
 import { useFuse } from "fuse-react-hook";
+
+const data = [ // data property name can be anything
+    {
+        id: 1,
+        name: "Apple",
+    },
+    {
+        id: 2,
+        name: "Banana",
+    },
+    {
+        id: 3,
+        name: "Orange",
+    },
+    {
+        id: 4,
+        name: "Mango",
+    },
+    {
+        id: 5,
+        name: "Pineapple",
+    },
+];
+
+type BRANDSTYPE = { // you have to define property names in the type
+    id: number;
+    name: string;
+};
+
+const options = {
+	shouldSort: true,
+	useExtendedSearch: true,
+	keys: ["value"],
+};
+
+export function App() {
+	const [searchText, setSearchText] = useState("");
+	const { search } =
+		useFuse<BRANDSTYPE>
+		{
+			data,
+			options,
+			searchText,
+		};
+
+	const filteredData = search();
+
+	return (
+		<div>
+			<input
+				type="text"
+				value={searchText}
+				onChange={(e) => setSearchText(e.target.value)}
+			/>
+			<ul>
+				{filteredData.map((item) => (
+					<li key={item.id}>{item.name}</li>
+				))}
+			</ul>
+		</div>
+	);
+}
 ```
