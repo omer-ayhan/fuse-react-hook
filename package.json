@@ -42,5 +42,12 @@
 		"react-dom": ">= 16",
 		"react-test-renderer": ">= 16",
 		"typescript": "^4.9.4"
-	}
+	},
+	"keywords": [
+		"fuzzy",
+		"fuse.js",
+		"search",
+		"react",
+		"react-hook"
+	]
 }
