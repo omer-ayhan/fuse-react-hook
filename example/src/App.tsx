@@ -1,34 +1,66 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import { useFuse } from "fuse-react-hook";
+import { useState } from "react";
 
-function App() {
-  const [count, setCount] = useState(0)
+const data = [
+	// data property name can be anything
+	{
+		id: 1,
+		name: "Apple",
+	},
+	{
+		id: 2,
+		name: "Banana",
+	},
+	{
+		id: 3,
+		name: "Orange",
+	},
+	{
+		id: 4,
+		name: "Mango",
+	},
+	{
+		id: 5,
+		name: "Pineapple",
+	},
+];
 
-  return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
-  )
+type DATASTYPE = {
+	// you have to define data property names in the type
+	id: number;
+	name: string;
+};
+
+const options = {
+	shouldSort: true,
+	useExtendedSearch: true,
+	keys: ["name"],
+};
+
+export function App() {
+	const [searchText, setSearchText] = useState("");
+	const { search } = useFuse<DATASTYPE>({
+		data,
+		options,
+		searchText,
+	});
+
+	const filteredData = search();
+
+	return (
+		<div>
+			<input
+				type="text"
+				value={searchText}
+				onChange={(e) => setSearchText(e.target.value)}
+			/>
+			<ul>
+				{filteredData.map((item) => (
+					<li key={item.id}>{item.name}</li>
+				))}
+			</ul>
+		</div>
+	);
 }
 
-export default App
+export default App;

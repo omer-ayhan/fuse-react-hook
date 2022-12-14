@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "fuse-react-hook": "^0.0.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "use-fuse": "^0.0.3"

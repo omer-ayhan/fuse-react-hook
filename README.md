@@ -41,51 +41,52 @@ data property names does not have to be any specific name as long as they are de
 ## Usage
 
 ```tsx
+import { useState } from "react";
 import { useFuse } from "fuse-react-hook";
 
-const data = [ // data property name can be anything
-    {
-        id: 1,
-        name: "Apple",
-    },
-    {
-        id: 2,
-        name: "Banana",
-    },
-    {
-        id: 3,
-        name: "Orange",
-    },
-    {
-        id: 4,
-        name: "Mango",
-    },
-    {
-        id: 5,
-        name: "Pineapple",
-    },
+const data = [
+	// data property name can be anything
+	{
+		id: 1,
+		name: "Apple",
+	},
+	{
+		id: 2,
+		name: "Banana",
+	},
+	{
+		id: 3,
+		name: "Orange",
+	},
+	{
+		id: 4,
+		name: "Mango",
+	},
+	{
+		id: 5,
+		name: "Pineapple",
+	},
 ];
 
-type BRANDSTYPE = { // you have to define property names in the type
-    id: number;
-    name: string;
+type DATASTYPE = {
+	// you have to define data property names in the type
+	id: number;
+	name: string;
 };
 
 const options = {
 	shouldSort: true,
 	useExtendedSearch: true,
-	keys: ["value"],
+	keys: ["name"],
 };
 
 export function App() {
 	const [searchText, setSearchText] = useState("");
-	const { search } =
-		useFuse<BRANDSTYPE>
-		{
-			data,
-			options,
-			searchText,
-		};
+	const { search } = useFuse<DATASTYPE>({
+		data,
+		options,
+		searchText,
+	});
 
 	const filteredData = search();
 

@@ -9,6 +9,7 @@
 # production
 /build
 /dist
+/dist/example
 /storybook-static
 /.rts2_cache_cjs
 /.rts2_cache_es
