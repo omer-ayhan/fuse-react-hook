@@ -1,7 +1,7 @@
 {
 	"name": "fuse-react-hook",
 	"type": "module",
-	"version": "0.0.4",
+	"version": "0.0.5",
 	"description": "A simple and strongly typed hook for using Fuse.js in React",
 	"license": "MIT",
 	"private": false,
